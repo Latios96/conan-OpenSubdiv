@@ -11,6 +11,6 @@ conan user
 #conan profile new default --detect
 
 if [[ "$(uname -s)" != 'Darwin' ]]; then
-  apt-get install x11-xserver-utils
+  sudo apt-get install x11-xserver-utils
 fi
 
