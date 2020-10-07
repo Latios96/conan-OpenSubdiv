@@ -8,9 +8,9 @@ pip3 install conan --upgrade
 pip3 install conan_package_tools
 
 conan user
-conan profile new default --detect
+#conan profile new default --detect
 
-if [[ "$(uname -s)" != 'Darwin' ]]; then
-  conan profile update settings.compiler.libcxx=libstdc++11 default
-fi
+#if [[ "$(uname -s)" != 'Darwin' ]]; then
+#  conan profile update settings.compiler.libcxx=libstdc++11 default
+#fi
 
