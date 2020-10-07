@@ -25,10 +25,6 @@ if [[ "$(uname -s)" != 'Darwin' ]]; then
   sudo apt-get install libxxf86vm1
   sudo apt-get install libxxf86vm-dev
 
-  # install GLEW
-  sudo apt-get install libglew1.10
-  sudo apt-get install libglew-dev
-
 
   ###############################################################################
   # Upgrade to get a version of Mesa that supports OGL 4
