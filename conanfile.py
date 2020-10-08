@@ -1,3 +1,5 @@
+import os
+
 from conans import ConanFile, CMake, tools
 
 
@@ -10,23 +12,35 @@ class OpenSubdivConan(ConanFile):
     description = "An Open-Source subdivision surface library"
     topics = ("<Put some tag here>", "<here>", "<and here>")
     settings = "os", "compiler", "build_type", "arch"
-    options = {"shared": [True, False]}
-    default_options = {"shared": True}
+    options = {"shared": [True, False], "with_tbb": [True, False]}
+    default_options = {"shared": True, "with_tbb": True}
     generators = "cmake"
 
-    requires = (
-    )
+    requires = ()
+
+    def requirements(self):
+        if self.options.with_tbb:
+            self.requires("tbb/2020.2")
 
     @property
     def version_with_underscore(self):
         return self.version.replace(".", "_")
 
     def source(self):
-        tools.get("https://github.com/PixarAnimationStudios/OpenSubdiv/archive/v{}.zip".format(self.version_with_underscore))
+        tools.get(
+            "https://github.com/PixarAnimationStudios/OpenSubdiv/archive/v{}.zip".format(
+                self.version_with_underscore
+            )
+        )
 
     def _configure_cmake(self):
+        os.environ.update({
+            "TBB_ROOT": self.deps_cpp_info["tbb"].rootpath,
+        })
         cmake = CMake(self)
-        cmake.configure(source_folder="OpenSubdiv-{}".format(self.version_with_underscore))
+        cmake.configure(
+            source_folder="OpenSubdiv-{}".format(self.version_with_underscore)
+        )
         return cmake
 
     def build(self):
@@ -38,9 +52,7 @@ class OpenSubdivConan(ConanFile):
         cmake.install()
 
     def package_info(self):
-        self.cpp_info.libs = [
-            "osdCPU",
-            "osdGPU"]
+        self.cpp_info.libs = ["osdCPU", "osdGPU"]
 
     def imports(self):
         self.copy("*.dll", "", "bin")
