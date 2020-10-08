@@ -1,9 +1,10 @@
 env:
    global:
      - CONAN_REFERENCE: "OpenSubdiv/3.4.3"
-     - CONAN_USERNAME: "user"
-     - CONAN_LOGIN_USERNAME: "user"
-     - CONAN_CHANNEL: "channel"
+     - CONAN_USERNAME: "latios96"
+     - CONAN_LOGIN_USERNAME: "latios96"
+     - CONAN_STABLE_BRANCH_PATTERN: "stable/*"
+     - CONAN_UPLOAD_ONLY_WHEN_STABLE: 0
      
 linux: &linux
    os: linux
