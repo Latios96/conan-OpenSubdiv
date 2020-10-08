@@ -3,6 +3,7 @@ env:
      - CONAN_REFERENCE: "OpenSubdiv/3.4.3"
      - CONAN_USERNAME: "latios96"
      - CONAN_LOGIN_USERNAME: "latios96"
+     - CONAN_CHANNEL: "stable"
      
 linux: &linux
    os: linux
