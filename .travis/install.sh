@@ -21,8 +21,6 @@ if [[ "$(uname -s)" != 'Darwin' ]]; then
   conan profile update settings.compiler.libcxx=libstdc++11 default
 fi
 
-conan remote add my_bintray https://api.bintray.com/conan/latios96/my_conan
-
 if [[ "$(uname -s)" != 'Darwin' ]]; then
   sudo apt-get update -qq
 
