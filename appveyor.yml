@@ -24,4 +24,4 @@ install:
   - C:\Python37-x64\Scripts\conan user # It creates the conan data directory
 
 test_script:
-  - C:\Python37-x64\Scripts\conan create . latios96/testing
+  - C:\Python37-x64\python build.py
