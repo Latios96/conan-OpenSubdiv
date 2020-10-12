@@ -7,5 +7,6 @@ if __name__ == "__main__":
     builder.add_common_builds()
     builder.build_policy = "missing"
     builder.remove_build_if(
-        lambda build: build.options["OpenSubdiv:shared"] == True and sys.platform == "win32")
+        lambda build: (build.options["OpenSubdiv:shared"] == True or build.settings[
+            "compiler.runtime"] == "MT") and sys.platform == "win32")
     builder.run()
