@@ -25,5 +25,4 @@ install:
   - conan user # It creates the conan data directory
 
 test_script:
-  #- python build.py
   - conan create . latios96/testing
