@@ -7,7 +7,7 @@ environment:
   CONAN_USERNAME: "latios96"
   CONAN_LOGIN_USERNAME: "latios96"
   CONAN_CHANNEL: "stable"
-  CONAN_UPLOAD: "https://api:bintray:com/conan/latios96/my_conan"
+  CONAN_UPLOAD: "https://api.bintray.com/conan/latios96/my_conan"
 
   matrix:
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
