@@ -1,0 +1,29 @@
+trigger:
+- master
+- dev
+
+jobs:
+- job: Linux
+  pool:
+    vmImage: 'ubuntu-18.04'
+  steps:
+  - script: |
+      sudo apt-get -qq update;
+      sudo pip install --upgrade pip
+      sudo pip install --upgrade conan conan_package_tools
+      sudo apt-get install python-setuptools;
+      sudo apt-get install libglew-dev libxrandr-dev libxcursor-dev libxinerama-dev libxi-dev;
+      sudo python build_scripts/build_osd.py --tests --tbb --omp --build $HOME/OSDgen/build --src $HOME/OSDgen/src $HOME/OSDinst
+    displayName: 'Building OpenSubdiv conan package'
+
+
+- job: Windows
+  pool:
+    vmImage: 'windows-2019'
+  steps:
+  - script: |
+      call C:\"Program Files (x86)"\"Microsoft Visual Studio"\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat
+      call set PATH=C:/Python27amd64;C:/Python27amd64/Scripts;%PATH%
+      call pip install --upgrade conan conan_package_tools
+      call python build.py
+    displayName: 'Building OpenSubdiv conan package'
