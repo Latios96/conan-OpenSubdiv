@@ -13,7 +13,7 @@ jobs:
       sudo pip install --upgrade conan conan_package_tools
       sudo apt-get install python-setuptools;
       sudo apt-get install libglew-dev libxrandr-dev libxcursor-dev libxinerama-dev libxi-dev;
-      sudo python build_scripts/build_osd.py --tests --tbb --omp --build $HOME/OSDgen/build --src $HOME/OSDgen/src $HOME/OSDinst
+      sudo python build.py
     displayName: 'Building OpenSubdiv conan package'
 
 
@@ -27,3 +27,5 @@ jobs:
       call pip install --upgrade conan conan_package_tools
       call python build.py
     displayName: 'Building OpenSubdiv conan package'
+    env:
+      CONAN_VISUAL_VERSIONS: 16
