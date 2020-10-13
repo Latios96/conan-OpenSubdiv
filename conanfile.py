@@ -42,6 +42,17 @@ class OpenSubdivConan(ConanFile):
         cmake.definitions["NO_EXAMPLES"] = True
         cmake.definitions["NO_TUTORIALS"] = True
         cmake.definitions["NO_REGRESSION"] = True
+
+        cmake.definitions["NO_TBB"] = True
+        cmake.definitions["NO_OMP"] = True
+        cmake.definitions["NO_CUDA"] = True
+        cmake.definitions["NO_PTEX"] = True
+        cmake.definitions["NO_DOC"] = True
+        cmake.definitions["NO_CLEW"] = True
+        cmake.definitions["NO_OPENGL"] = True
+        cmake.definitions["NO_OPENCL"] = True
+
+
         cmake.configure(
             source_folder="OpenSubdiv-{}".format(self.version_with_underscore)
         )
