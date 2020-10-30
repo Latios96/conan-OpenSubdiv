@@ -10,10 +10,6 @@ environment:
   CONAN_UPLOAD: "https://api.bintray.com/conan/latios96/my_conan"
 
   matrix:
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-      CONAN_VISUAL_VERSIONS: 12
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-      CONAN_VISUAL_VERSIONS: 14
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       CONAN_VISUAL_VERSIONS: 15
 
@@ -23,5 +19,7 @@ install:
   - C:\Python37-x64\Scripts\conan user # It creates the conan data directory
 
 test_script:
-  - C:\Python37-x64\Scripts\conan create . -o OpenSubdiv:shared=False -s build_type=Release
-  - C:\Python37-x64\Scripts\conan create . -o OpenSubdiv:shared=False -s build_type=Debug
+  - C:\Python37-x64\Scripts\conan create . -o OpenSubdiv:shared=False -s build_type=Release -s compiler.version=%CONAN_VISUAL_VERSIONS% -s compiler.runtime=MT
+  - C:\Python37-x64\Scripts\conan create . -o OpenSubdiv:shared=False -s build_type=Debug -s compiler.version=%CONAN_VISUAL_VERSIONS% -s compiler.runtime=MTd
+  - C:\Python37-x64\Scripts\conan create . -o OpenSubdiv:shared=False -s build_type=Release -s compiler.version=%CONAN_VISUAL_VERSIONS% -s compiler.runtime=MD
+  - C:\Python37-x64\Scripts\conan create . -o OpenSubdiv:shared=False -s build_type=Debug -s compiler.version=%CONAN_VISUAL_VERSIONS% -s compiler.runtime=MDd
