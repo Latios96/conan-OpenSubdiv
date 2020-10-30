@@ -6,11 +6,11 @@ from conans import ConanFile, CMake, tools
 class OpenSubdivConan(ConanFile):
     name = "OpenSubdiv"
     version = "3.4.3"
-    license = "<Put the package license here>"
+    license = "Apache-2.0"
     author = "Jan Honsbrok jan.honsbrok@gmail.com"
-    url = "<Package recipe repository url here, for issues about the package>"
+    url = "https://github.com/Latios96/conan-OpenSubdiv"
     description = "An Open-Source subdivision surface library"
-    topics = ("<Put some tag here>", "<here>", "<and here>")
+    topics = ("cgi", "vfx", "subdivision surface")
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False], "with_tbb": [True, False]}
     default_options = {"shared": True, "with_tbb": True}
@@ -34,9 +34,9 @@ class OpenSubdivConan(ConanFile):
         )
 
     def _configure_cmake(self):
-        os.environ.update({
-            "TBB_LOCATION": self.deps_cpp_info["tbb"].rootpath,
-        })
+        os.environ.update(
+            {"TBB_LOCATION": self.deps_cpp_info["tbb"].rootpath,}
+        )
         cmake = CMake(self)
         cmake.definitions["NO_TBB"] = not self.options.with_tbb
         cmake.definitions["NO_EXAMPLES"] = True
@@ -51,7 +51,6 @@ class OpenSubdivConan(ConanFile):
         cmake.definitions["NO_CLEW"] = True
         cmake.definitions["NO_OPENGL"] = True
         cmake.definitions["NO_OPENCL"] = True
-
 
         cmake.configure(
             source_folder="OpenSubdiv-{}".format(self.version_with_underscore)
