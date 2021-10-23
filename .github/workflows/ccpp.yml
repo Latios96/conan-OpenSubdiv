@@ -3,9 +3,12 @@ name: Github Actions CI
 on: [push]
 
 jobs:
-  build-windows:
-    name:  windows-2019
-    runs-on:  windows-2019
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ "windows-2019", "ubuntu-20.04", "macos-latest" ]
+    name: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python 3.7
@@ -16,59 +19,31 @@ jobs:
         run: |
           pip install conan conan_package_tools
           conan --version
-      - name: build package
+      - name: install apt packages
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install libxrandr-dev libxcursor-dev libxinerama-dev libxi-dev freeglut3 freeglut3-dev libxxf86vm1 libxxf86vm-dev
+      - name: setup conan profile
+        if: runner.os == 'Linux'
+        run: |
+          conan profile new default --detect
+          conan profile update settings.compiler.libcxx=libstdc++11 default
+      - name: Setup cmake
+        if: runner.os == 'macOS'
+        uses: jwlawson/actions-setup-cmake@v1.7
+        with:
+          cmake-version: '3.18.x'
+      - name: build package without opengl
         run: |
           conan create . -o OpenSubdiv:with_tbb=True -o OpenSubdiv:no_opengl=True -s build_type=Release
           conan create . -o OpenSubdiv:with_tbb=False -o OpenSubdiv:no_opengl=True -s build_type=Release
           conan create . -o OpenSubdiv:with_tbb=True -o OpenSubdiv:no_opengl=True -s build_type=Debug
           conan create . -o OpenSubdiv:with_tbb=False -o OpenSubdiv:no_opengl=True -s build_type=Debug
-  build-linux:
-    name: ubuntu-20.04
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python 3.7
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.7
-      - name: install apt packages
+      - name: build package with opengl
+        if: runner.os != 'Windows'
         run: |
-          sudo apt-get update
-          sudo apt-get install libxrandr-dev libxcursor-dev libxinerama-dev libxi-dev freeglut3 freeglut3-dev libxxf86vm1 libxxf86vm-dev
-      - name: install conan
-        run: |
-          pip install conan conan_package_tools
-          conan --version
-      - name: setup conan profile
-        run: |
-          conan profile new default --detect
-          conan profile update settings.compiler.libcxx=libstdc++11 default
-      - name: build package
-        run: |
-          conan create . -o OpenSubdiv:with_tbb=True -s build_type=Release
-          conan create . -o OpenSubdiv:with_tbb=False -s build_type=Release
-          conan create . -o OpenSubdiv:with_tbb=True -s build_type=Debug
-          conan create . -o OpenSubdiv:with_tbb=False -s build_type=Debug
-  build-macos:
-    name: Mac OS
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python 3.7
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.7
-      - name: Setup cmake
-        uses: jwlawson/actions-setup-cmake@v1.7
-        with:
-          cmake-version: '3.18.x'
-      - name: install conan
-        run: |
-          pip install conan conan_package_tools
-          conan --version
-      - name: build package
-        run: |
-          conan create . -o OpenSubdiv:with_tbb=True -s build_type=Release
-          conan create . -o OpenSubdiv:with_tbb=False -s build_type=Release
-          conan create . -o OpenSubdiv:with_tbb=True -s build_type=Debug
-          conan create . -o OpenSubdiv:with_tbb=False -s build_type=Debug
+          conan create . -o OpenSubdiv:with_tbb=True -o OpenSubdiv:no_opengl=False -s build_type=Release
+          conan create . -o OpenSubdiv:with_tbb=False -o OpenSubdiv:no_opengl=False -s build_type=Release
+          conan create . -o OpenSubdiv:with_tbb=True -o OpenSubdiv:no_opengl=False -s build_type=Debug
+          conan create . -o OpenSubdiv:with_tbb=False -o OpenSubdiv:no_opengl=False -s build_type=Debug
