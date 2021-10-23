@@ -34,12 +34,6 @@ jobs:
         uses: jwlawson/actions-setup-cmake@v1.7
         with:
           cmake-version: '3.18.x'
-      - name: build package without opengl
-        run: |
-          conan create . -o OpenSubdiv:with_tbb=True -o OpenSubdiv:no_opengl=True -s build_type=Release
-          conan create . -o OpenSubdiv:with_tbb=False -o OpenSubdiv:no_opengl=True -s build_type=Release
-          conan create . -o OpenSubdiv:with_tbb=True -o OpenSubdiv:no_opengl=True -s build_type=Debug
-          conan create . -o OpenSubdiv:with_tbb=False -o OpenSubdiv:no_opengl=True -s build_type=Debug
       - name: build package with opengl
         if: runner.os != 'Windows'
         run: |
@@ -47,3 +41,9 @@ jobs:
           conan create . -o OpenSubdiv:with_tbb=False -o OpenSubdiv:no_opengl=False -s build_type=Release
           conan create . -o OpenSubdiv:with_tbb=True -o OpenSubdiv:no_opengl=False -s build_type=Debug
           conan create . -o OpenSubdiv:with_tbb=False -o OpenSubdiv:no_opengl=False -s build_type=Debug
+      - name: build package without opengl
+        run: |
+          conan create . -o OpenSubdiv:with_tbb=True -o OpenSubdiv:no_opengl=True -s build_type=Release
+          conan create . -o OpenSubdiv:with_tbb=False -o OpenSubdiv:no_opengl=True -s build_type=Release
+          conan create . -o OpenSubdiv:with_tbb=True -o OpenSubdiv:no_opengl=True -s build_type=Debug
+          conan create . -o OpenSubdiv:with_tbb=False -o OpenSubdiv:no_opengl=True -s build_type=Debug
