@@ -1,0 +1,58 @@
+name: Github Actions CI
+
+on: [push]
+
+jobs:
+  build-windows:
+    name:  windows-2019
+    runs-on:  windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: install conan
+        run: |
+          pip install conan
+          conan --version
+      - name: build package
+        run: python3 build.py
+  build-linux:
+    name: ubuntu-20.04
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: install apt packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install libxrandr-dev libxcursor-dev libxinerama-dev libxi-dev freeglut3 freeglut3-dev libxxf86vm1 libxxf86vm-dev
+      - name: install conan
+        run: |
+          pip install conan
+          conan --version
+      - name: build package
+        run: python3 build.py
+  build-macos:
+    name: Mac OS
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: Setup cmake
+        uses: jwlawson/actions-setup-cmake@v1.7
+        with:
+          cmake-version: '3.18.x'
+      - name: install conan
+        run: |
+          pip install conan
+          conan --version
+      - name: build package
+        run: python3 build.py
