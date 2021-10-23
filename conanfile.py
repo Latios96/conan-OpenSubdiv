@@ -49,7 +49,6 @@ class OpenSubdivConan(ConanFile):
         cmake.definitions["NO_PTEX"] = True
         cmake.definitions["NO_DOC"] = True
         cmake.definitions["NO_CLEW"] = True
-        cmake.definitions["NO_OPENGL"] = True
         cmake.definitions["NO_OPENCL"] = True
 
         cmake.configure(
