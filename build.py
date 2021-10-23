@@ -7,7 +7,7 @@ def skip_if_windows(build):
     if sys.platform != "win32":
         return False
     return build.settings['build_type'] and build.settings[
-        'compiler.runtime'].startswith("MT")
+        'compiler.runtime'].startswith("MT") or build.settings["no_opengl"] != False
 
 
 if __name__ == "__main__":

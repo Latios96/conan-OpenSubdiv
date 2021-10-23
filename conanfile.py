@@ -13,8 +13,8 @@ class OpenSubdivConan(ConanFile):
     description = "An Open-Source subdivision surface library"
     topics = ("cgi", "vfx", "subdivision surface")
     settings = "os", "compiler", "build_type", "arch"
-    options = {"with_tbb": [True, False]}
-    default_options = {"with_tbb": True}
+    options = {"with_tbb": [True, False], "no_opengl": [True, False]}
+    default_options = {"with_tbb": True,"no_opengl": False}
     generators = "cmake"
 
     requires = ()
@@ -51,8 +51,7 @@ class OpenSubdivConan(ConanFile):
         cmake.definitions["NO_DOC"] = True
         cmake.definitions["NO_CLEW"] = True
         cmake.definitions["NO_OPENCL"] = True
-        if sys.platform != "win32":
-            cmake.definitions["WIN32_LEAN_AND_MEAN"] = True
+        cmake.definitions["NO_OPENGL"] = self.options.no_opengl
 
         cmake.configure(
             source_folder="OpenSubdiv-{}".format(self.version_with_underscore)
