@@ -35,9 +35,10 @@ class OpenSubdivConan(ConanFile):
         )
 
     def _configure_cmake(self):
-        os.environ.update(
-            {"TBB_LOCATION": self.deps_cpp_info["tbb"].rootpath,}
-        )
+        if self.options.with_tbb:
+            os.environ.update(
+                {"TBB_LOCATION": self.deps_cpp_info["tbb"].rootpath,}
+            )
         cmake = CMake(self)
         cmake.definitions["NO_TBB"] = not self.options.with_tbb
         cmake.definitions["NO_OPENGL"] = self.options.no_opengl
