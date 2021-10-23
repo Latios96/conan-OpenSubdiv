@@ -17,7 +17,9 @@ jobs:
           pip install conan conan_package_tools
           conan --version
       - name: build package
-        run: python3 build.py
+        run: |
+          conan create . -o OpenSubdiv:shared=False -o OpenSubdiv:no_opengl=True -s build_type=Release
+          conan create . -o OpenSubdiv:shared=False -o OpenSubdiv:no_opengl=True -s build_type=Debug
   build-linux:
     name: ubuntu-20.04
     runs-on: ubuntu-20.04
@@ -40,7 +42,9 @@ jobs:
           conan profile new default --detect
           conan profile update settings.compiler.libcxx=libstdc++11 default
       - name: build package
-        run: python3 build.py
+        run: |
+          conan create . -o OpenSubdiv:shared=False -s build_type=Release
+          conan create . -o OpenSubdiv:shared=False -s build_type=Debug
   build-macos:
     name: Mac OS
     runs-on: macos-latest
@@ -59,4 +63,6 @@ jobs:
           pip install conan conan_package_tools
           conan --version
       - name: build package
-        run: python3 build.py
+        run: |
+          conan create . -o OpenSubdiv:shared=False -s build_type=Release
+          conan create . -o OpenSubdiv:shared=False -s build_type=Debug
