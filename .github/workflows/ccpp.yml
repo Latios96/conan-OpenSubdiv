@@ -55,4 +55,4 @@ jobs:
           conan create . OpenSubdiv/3.4.3@latios96/stable -o OpenSubdiv:with_tbb=False -o OpenSubdiv:no_opengl=True -s build_type=Debug
       - name: upload to framebffr
         run: |
-          conan upload OpenSubdiv/3.4.3@latios96/stable --all -r=my_bintray
+          conan upload OpenSubdiv/3.4.3@latios96/stable --all -r=framebffr
