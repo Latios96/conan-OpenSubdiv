@@ -66,7 +66,9 @@ class OpenSubdivConan(ConanFile):
         cmake.install()
 
     def package_info(self):
-        self.cpp_info.libs = ["osdCPU", "osdGPU"]
+        self.cpp_info.libs = ["osdCPU"]
+        if not self.options.no_opengl:
+            self.cpp_info.libs.append("osdGPU")
 
     def imports(self):
         self.copy("*.dll", "", "bin")
