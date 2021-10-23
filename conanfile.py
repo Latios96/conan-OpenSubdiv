@@ -42,6 +42,7 @@ class OpenSubdivConan(ConanFile):
         cmake = CMake(self)
         cmake.definitions["NO_TBB"] = not self.options.with_tbb
         cmake.definitions["NO_OPENGL"] = self.options.no_opengl
+        cmake.definitions["BUILD_SHARED_LIBS"] = False
         cmake.definitions["NO_EXAMPLES"] = True
         cmake.definitions["NO_TUTORIALS"] = True
         cmake.definitions["NO_REGRESSION"] = True
