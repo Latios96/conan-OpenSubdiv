@@ -1,4 +1,5 @@
 import os
+import sys
 
 from conans import ConanFile, CMake, tools
 
@@ -50,6 +51,8 @@ class OpenSubdivConan(ConanFile):
         cmake.definitions["NO_DOC"] = True
         cmake.definitions["NO_CLEW"] = True
         cmake.definitions["NO_OPENCL"] = True
+        if sys.platform != "win32":
+            cmake.definitions["WIN32_LEAN_AND_MEAN"] = True
 
         cmake.configure(
             source_folder="OpenSubdiv-{}".format(self.version_with_underscore)
