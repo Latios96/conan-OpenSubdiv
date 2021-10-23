@@ -12,8 +12,8 @@ class OpenSubdivConan(ConanFile):
     description = "An Open-Source subdivision surface library"
     topics = ("cgi", "vfx", "subdivision surface")
     settings = "os", "compiler", "build_type", "arch"
-    options = {"shared": [True, False], "with_tbb": [True, False]}
-    default_options = {"shared": True, "with_tbb": True}
+    options = {"with_tbb": [True, False]}
+    default_options = {"with_tbb": True}
     generators = "cmake"
 
     requires = ()
