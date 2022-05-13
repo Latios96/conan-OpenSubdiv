@@ -43,16 +43,16 @@ jobs:
       - name: build package with opengl
         if: runner.os != 'Windows'
         run: |
-          conan create . OpenSubdiv/3.4.3@latios96/stable -o OpenSubdiv:with_tbb=True -o OpenSubdiv:no_opengl=False -s build_type=Release
-          conan create . OpenSubdiv/3.4.3@latios96/stable -o OpenSubdiv:with_tbb=False -o OpenSubdiv:no_opengl=False -s build_type=Release
-          conan create . OpenSubdiv/3.4.3@latios96/stable -o OpenSubdiv:with_tbb=True -o OpenSubdiv:no_opengl=False -s build_type=Debug
-          conan create . OpenSubdiv/3.4.3@latios96/stable -o OpenSubdiv:with_tbb=False -o OpenSubdiv:no_opengl=False -s build_type=Debug
+          conan create . OpenSubdiv/3.4.4@latios96/stable -o OpenSubdiv:with_tbb=True -o OpenSubdiv:no_opengl=False -s build_type=Release
+          conan create . OpenSubdiv/3.4.4@latios96/stable -o OpenSubdiv:with_tbb=False -o OpenSubdiv:no_opengl=False -s build_type=Release
+          conan create . OpenSubdiv/3.4.4@latios96/stable -o OpenSubdiv:with_tbb=True -o OpenSubdiv:no_opengl=False -s build_type=Debug
+          conan create . OpenSubdiv/3.4.4@latios96/stable -o OpenSubdiv:with_tbb=False -o OpenSubdiv:no_opengl=False -s build_type=Debug
       - name: build package without opengl
         run: |
-          conan create . OpenSubdiv/3.4.3@latios96/stable -o OpenSubdiv:with_tbb=True -o OpenSubdiv:no_opengl=True -s build_type=Release
-          conan create . OpenSubdiv/3.4.3@latios96/stable -o OpenSubdiv:with_tbb=False -o OpenSubdiv:no_opengl=True -s build_type=Release
-          conan create . OpenSubdiv/3.4.3@latios96/stable -o OpenSubdiv:with_tbb=True -o OpenSubdiv:no_opengl=True -s build_type=Debug
-          conan create . OpenSubdiv/3.4.3@latios96/stable -o OpenSubdiv:with_tbb=False -o OpenSubdiv:no_opengl=True -s build_type=Debug
+          conan create . OpenSubdiv/3.4.4@latios96/stable -o OpenSubdiv:with_tbb=True -o OpenSubdiv:no_opengl=True -s build_type=Release
+          conan create . OpenSubdiv/3.4.4@latios96/stable -o OpenSubdiv:with_tbb=False -o OpenSubdiv:no_opengl=True -s build_type=Release
+          conan create . OpenSubdiv/3.4.4@latios96/stable -o OpenSubdiv:with_tbb=True -o OpenSubdiv:no_opengl=True -s build_type=Debug
+          conan create . OpenSubdiv/3.4.4@latios96/stable -o OpenSubdiv:with_tbb=False -o OpenSubdiv:no_opengl=True -s build_type=Debug
       - name: upload to framebffr
         run: |
-          conan upload OpenSubdiv/3.4.3@latios96/stable --all -r=framebffr
+          conan upload OpenSubdiv/3.4.4@latios96/stable --all -r=framebffr
