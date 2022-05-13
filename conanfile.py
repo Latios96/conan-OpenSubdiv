@@ -21,7 +21,7 @@ class OpenSubdivConan(ConanFile):
 
     def requirements(self):
         if self.options.with_tbb:
-            self.requires("tbb/2020.2")
+            self.requires("onetbb/2021.3.0")
 
     @property
     def version_with_underscore(self):
